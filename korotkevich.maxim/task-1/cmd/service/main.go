@@ -2,8 +2,7 @@ package main
 
 import "fmt"
 
-func main(){
-
+func main() {
 	var(
 		firstNumber, secondNumber int
 		operation string
@@ -21,7 +20,11 @@ func main(){
     	return
 	}
 
-	fmt.Scan(&operation)
+	_, err = fmt.Scan(&operation)
+	if err != nil {
+    	fmt.Println("Invalid operation")
+    	return
+	}
 
 	result, errMsg := calculateNumbers(firstNumber, secondNumber, operation)
 
