@@ -45,7 +45,7 @@ func calculateNumbers(firstNumber, secondNumber int, operation string) (int, str
 	case "/":
 		if secondNumber == 0 {
 			return 0, "Division by zero"
-		}else {
+		} else {
 			return firstNumber / secondNumber, ""
 		}
 	case "*":
