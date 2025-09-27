@@ -28,7 +28,7 @@ func main() {
 
 	result, errMsg := calculateNumbers(firstNumber, secondNumber, operation)
 
-	if errMsg != ""{
+	if errMsg != "" {
 		fmt.Println(errMsg)
 		return
 	}
@@ -40,20 +40,16 @@ func calculateNumbers(firstNumber, secondNumber int, operation string) (int, str
 	switch operation {
 	case "+":
 		return firstNumber + secondNumber, ""
-
 	case "-":
 		return firstNumber - secondNumber, ""
-
 	case "/":
 		if secondNumber == 0 {
 			return 0, "Division by zero"
-		}else{
+		}else {
 			return firstNumber / secondNumber, ""
 		}
-
 	case "*":
 		return firstNumber * secondNumber, ""
-
 	default:
 		return 0, "Invalid operation"
 	}
