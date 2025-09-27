@@ -5,7 +5,7 @@ import "fmt"
 func main() {
 	var (
 		firstNumber, secondNumber int
-		operation string
+		operation                 string
 	)
 
 	_, err := fmt.Scan(&firstNumber)
@@ -36,7 +36,7 @@ func main() {
 	fmt.Println(result)
 }
 
-func calculateNumbers(firstNumber, secondNumber int, operation string) (int, string){
+func calculateNumbers(firstNumber, secondNumber int, operation string) (int, string) {
 	switch operation {
 	case "+":
 		return firstNumber + secondNumber, ""
