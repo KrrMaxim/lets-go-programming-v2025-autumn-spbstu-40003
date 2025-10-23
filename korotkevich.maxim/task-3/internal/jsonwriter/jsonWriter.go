@@ -10,9 +10,9 @@ import (
 func WriteJSON(outputPath string, data interface{}) error {
 	const permissions = 0o755
 
-	directiory := filepath.Dir(outputPath)
-	if directiory != "" && directiory != "." {
-		if err := os.MkdirAll(directiory, permissions); err != nil {
+	directory := filepath.Dir(outputPath)
+	if directory != "" && directory != "." {
+		if err := os.MkdirAll(directory, permissions); err != nil {
 			return fmt.Errorf("error: failed to create output directory %w", err)
 		}
 	}
@@ -23,7 +23,7 @@ func WriteJSON(outputPath string, data interface{}) error {
 	}
 
 	defer func() {
-	err := outputFile.Close()
+		err := outputFile.Close()
 		if err != nil {
 			panic(fmt.Errorf("error: problem with closing file: %w", err))
 		}

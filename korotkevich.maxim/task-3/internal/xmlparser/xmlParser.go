@@ -2,9 +2,9 @@ package xmlparser
 
 import (
 	"encoding/xml"
+	"errors"
 	"fmt"
 	"os"
-	"errors"
 	"sort"
 	"strconv"
 	"strings"
@@ -13,8 +13,6 @@ import (
 )
 
 var (
-	ErrParseXml     = errors.New("error with parsing XML")
-	ErrOpenXml      = errors.New("error with opening xml file")
 	ErrNumCode      = errors.New("error: invalid num code")
 	ErrEmptyValue   = errors.New("error: empty Value")
 	ErrInvalidValue = errors.New("error: invalid value")
@@ -38,16 +36,18 @@ func (t *ExchangeTrade) UnmarshalXML(dec *xml.Decoder, start xml.StartElement) e
 	}
 
 	if err := dec.DecodeElement(&tmp, &start); err != nil {
-		return err
+		return fmt.Errorf("error with decoding element: %w", err)
 	}
 
 	t.CharCode = strings.TrimSpace(tmp.CharCode)
 
 	numStr := strings.TrimSpace(tmp.NumCode)
 	num, err := strconv.Atoi(numStr)
+
 	if err != nil {
 		return ErrNumCode
 	}
+
 	t.NumCode = num
 
 	val := strings.TrimSpace(tmp.Value)
@@ -61,17 +61,18 @@ func (t *ExchangeTrade) UnmarshalXML(dec *xml.Decoder, start xml.StartElement) e
 	if err != nil {
 		return ErrInvalidValue
 	}
+
 	t.Value = valFLoat
 
 	return nil
 }
 
-func XmlParse(path string) ([]ExchangeTrade, error) {
+func XMLParse(path string) ([]ExchangeTrade, error) {
 	var exData ExchangeData 
 
 	file, err := os.Open(path)
 	if err != nil {
-		return nil, ErrOpenXml
+		return nil, fmt.Errorf("open XML file: %w", err)
 	}
 
 	defer func() {
@@ -84,7 +85,7 @@ func XmlParse(path string) ([]ExchangeTrade, error) {
 	decoder.CharsetReader = charset.NewReaderLabel
 
 	if err := decoder.Decode(&exData); err != nil {
-		return nil, ErrParseXml
+		return nil, fmt.Errorf("parse XML: %w", err)
 	}
 
 	sort.Slice(exData.Valutes, func(i, j int) bool {

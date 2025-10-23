@@ -1,14 +1,14 @@
 package config
 
 import (
+	"errors"
 	"fmt"
 	"os"
-	"errors"
+
 	"gopkg.in/yaml.v3"
 )
 
 var(
-	ErrOpenFile   = errors.New("error: problem with opening file")
 	ErrDecodeFile = errors.New("error: failed to decode file")
 	ErrFileNotSet = errors.New("error: both input-file and output-file must be set")
 )
@@ -23,7 +23,7 @@ func ConfigLoad(path string) (*Config, error) {
 
 	data, err := os.Open(path)
 	if err != nil {
-		return nil, ErrOpenFile
+		return nil, fmt.Errorf("open config file: %w", err)
 	}
 
 	defer func(data *os.File) {

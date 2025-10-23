@@ -19,7 +19,7 @@ func main() {
 	}
 
 	
-	valutes, err := xmlparser.XmlParse(config.InputFile)
+	valutes, err := xmlparser.XMLParse(config.InputFile)
 	if err != nil {
 		panic(err)
 	}
