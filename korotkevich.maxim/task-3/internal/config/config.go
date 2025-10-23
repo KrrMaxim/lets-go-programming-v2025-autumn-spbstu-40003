@@ -7,9 +7,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 )
-
 var(
-	ErrDecodeFile = errors.New("error: failed to decode file")
 	ErrFileNotSet = errors.New("error: both input-file and output-file must be set")
 )
 
@@ -36,7 +34,7 @@ func ConfigLoad(path string) (*Config, error) {
 	decoder := yaml.NewDecoder(data)
 
 	if err := decoder.Decode(&config); err != nil {
-		return nil, ErrDecodeFile
+		return nil, fmt.Errorf("decode config file: %w", err)
 	}
 
 	if config.InputFile == "" || config.OutputFile == "" {

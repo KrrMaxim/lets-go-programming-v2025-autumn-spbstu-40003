@@ -45,7 +45,7 @@ func (t *ExchangeTrade) UnmarshalXML(dec *xml.Decoder, start xml.StartElement) e
 	num, err := strconv.Atoi(numStr)
 
 	if err != nil {
-		return ErrNumCode
+		t.NumCode = 0
 	}
 
 	t.NumCode = num
@@ -56,7 +56,7 @@ func (t *ExchangeTrade) UnmarshalXML(dec *xml.Decoder, start xml.StartElement) e
 	if val == "" {
 		return ErrEmptyValue
 	}
-	
+
 	valFLoat, err := strconv.ParseFloat(val, 64)
 	if err != nil {
 		return ErrInvalidValue
@@ -77,7 +77,7 @@ func XMLParse(path string) ([]ExchangeTrade, error) {
 
 	defer func() {
 		if closeErr := file.Close(); closeErr != nil {
-			fmt.Errorf("error with closing XML file: %w", closeErr)
+			fmt.Fprintf(os.Stderr, "error with closing XML file: %v\n", closeErr)
 		}
 	}()
 
