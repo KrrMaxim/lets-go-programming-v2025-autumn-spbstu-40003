@@ -82,7 +82,6 @@ func TestWiFiService_GetAddresses(t *testing.T) {
 	}
 }
 
-
 func TestWiFiService_GetNames(t *testing.T) {
 	t.Parallel()
 
