@@ -2,10 +2,8 @@ module github.com/KrrMaxim/task-6
 
 go 1.22.7
 
-toolchain go1.24.11
-
 require (
-	github.com/mdlayher/wifi v0.7.1
+	github.com/mdlayher/wifi v0.3.0
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/sync v0.8.0 // indirect
 )
