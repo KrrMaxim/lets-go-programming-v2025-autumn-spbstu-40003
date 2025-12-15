@@ -14,8 +14,6 @@ import (
 var (
 	errQuery = errors.New("query error")
 	errRow   = errors.New("row iteration error")
-	errFail  = errors.New("database query failed")
-	errIter  = errors.New("rows iteration failed")
 )
 
 func TestNew(t *testing.T) {
@@ -164,7 +162,7 @@ func TestGetUniqueNames(t *testing.T) {
 
 		prepare := func(mock sqlmock.Sqlmock) {
 			mock.ExpectQuery("SELECT DISTINCT name FROM users").
-				WillReturnError(errFail)
+				WillReturnError(errQuery)
 		}
 
 		runCase(t, prepare, nil, "db query")
@@ -188,7 +186,7 @@ func TestGetUniqueNames(t *testing.T) {
 			rows := sqlmock.NewRows([]string{"name"}).
 				AddRow("ok").
 				AddRow("bad")
-			rows.RowError(1, errIter)
+			rows.RowError(1, errRow)
 			mock.ExpectQuery("SELECT DISTINCT name FROM users").WillReturnRows(rows)
 		}
 
